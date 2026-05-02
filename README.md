@@ -101,7 +101,8 @@ Prefill Data Sources
 The challenge asks for three kinds of prefill data:
 1.	Form fields from forms that the selected form directly depends on 
 2.	Form fields from forms that the selected form transitively depends on 
-3.	Global data 
+3.	Global data
+   
 This project implements those with separate providers:
 DirectDependencySourceProvider
 TransitiveDependencySourceProvider
@@ -110,6 +111,7 @@ These are registered in:
 src/dataSources/index.ts
 Extensible Data Source Design
 Each data source provider follows this interface:
+```
 export type PrefillDataSourceProvider = {
   id: string;
   label: string;
@@ -123,11 +125,13 @@ export type PrefillSource = {
   valuePath: string;
   sourceType: string;
 };
+```
 The modal does not need to know where a source came from. It only receives a flat list of sources and groups them by category.
 This makes the UI reusable and keeps new source logic outside the React components.
 Adding a New Data Source
 To add a new data source, create a new provider in src/dataSources.
 Example:
+```
 import type { PrefillDataSourceProvider } from "./types";
 
 export const NewSourceProvider: PrefillDataSourceProvider = {
@@ -145,7 +149,9 @@ export const NewSourceProvider: PrefillDataSourceProvider = {
     ];
   },
 };
+```
 Then register it in src/dataSources/index.ts:
+```
 import { NewSourceProvider } from "./newSourceProvider";
 
 export const prefillDataSourceProviders = [
@@ -154,6 +160,8 @@ export const prefillDataSourceProviders = [
   GlobalSourceProvider,
   NewSourceProvider,
 ];
+
+```
 No modal or field row code needs to change.
 DAG Traversal
 Dependency traversal logic lives in:
