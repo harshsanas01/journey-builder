@@ -60,6 +60,8 @@ journey-builder/
   README.md
   package.json
   vite.config.ts
+
+```
 Running the Mock Server
 The mock server is provided separately in the frontendchallengeserver-main folder.
 From the root folder that contains both projects:
